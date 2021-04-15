@@ -1,0 +1,47 @@
+// Find-Itinerary-from-a-given-list-of-tickets
+//Time complexity O(n)
+#include <bits/stdc++.h>
+using namespace std;
+void find_itinarery(map<string, string>data)
+{
+    map<string, string>reverse;
+    for(auto it = data.begin(); it!=data.end(); it++)
+    {
+        reverse[it->second] = it->first;
+    }
+    string st;
+    for(auto it=data.begin(); it!=data.end(); it++)
+    {
+        if(reverse.find(it->first) == reverse.end())
+        {
+            st=it->first;
+            break;
+        }
+    }
+    if(st.empty())
+    {
+        cout<<"Invalid inputs"<<endl;
+        return;
+    }
+    auto it = data.find(st);
+    while(it != data.end())
+    {
+        cout<<it->first<<"->"<<it->second<<" ";
+        it = data.find(it->second);
+    }
+
+}
+int main ()
+{
+    /*"Banglore"-> "Chennai" 
+        "Delhi"   -> "Bombay" 
+        "Chennai" -> "Goa"
+        "Goa"     ->  "Delhi"*/
+    map<string, string>mp;
+    mp["Chennai"] = "Banglore";
+    mp["Bombay"] = "Delhi";
+    mp["Goa"] = "Chennai";
+    mp["Delhi"] = "Goa";
+    find_itinarery(mp);
+    return 0;
+}
